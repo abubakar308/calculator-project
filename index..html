@@ -20,9 +20,9 @@
             padding-right: 10px;
             text-align: right;
             border: none;
-            border-radius: 20px;
+            outline: none;
             font-weight: bold;
-            background: linear-gradient(to right, #d3d3d3, #808080); 
+            /* background: linear-gradient(to right, #d3d3d3, #808080);  */
         }
     
         .button{
@@ -52,19 +52,48 @@
 <body>
     <div class="container">
         <h2>Calculator</h2>
-     <input class="input" type="text" maxlength="9">
+     <input id="input"  type="text" maxlength="9">
         <div class="button">
-            <button class="sign">AC</button><button class="sign"><svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#0000FF"><path d="m480-336 96-96 96 96 48-48-96-96 96-96-48-48-96 96-96-96-48 48 96 96-96 96 48 48ZM372-192q-16.85 0-31.92-7.5Q325-207 314-221L120-480l194-259q11-14 26.08-21.5Q355.15-768 372-768h420q29.7 0 50.85 21.16Q864-725.68 864-695.96v432.24Q864-234 842.85-213T792-192H372ZM210-480l162 216h420v-432H372L210-480Zm372 0Z"/></svg></button>
-            <button class="sign">+/-</button><button class="sign">/</button>
-            <button>7</button><button>8</button>
-            <button>9</button><button class="sign"><svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#0000FF"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg></button>
-            <button>4</button><button>5</button>
-            <button>6</button><button class="sign">-</button>
-            <button>1</button><button>2</button>
-            <button>3</button><button class="sign">+</button>
-            <button>%</button><button>0</button>
-            <button>.</button><button class="equal">=</button>
+            <button onclick="clearAll()" class="sign">AC</button><button onclick="deleteANumber()" class="sign"><svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#0000FF"><path d="m480-336 96-96 96 96 48-48-96-96 96-96-48-48-96 96-96-96-48 48 96 96-96 96 48 48ZM372-192q-16.85 0-31.92-7.5Q325-207 314-221L120-480l194-259q11-14 26.08-21.5Q355.15-768 372-768h420q29.7 0 50.85 21.16Q864-725.68 864-695.96v432.24Q864-234 842.85-213T792-192H372ZM210-480l162 216h420v-432H372L210-480Zm372 0Z"/></svg></button>
+            <button class="sign">+/-</button><button onclick="appendNumber('/')" class="sign">/</button>
+            <button onclick="appendNumber('7')">7</button><button onclick="appendNumber('8')">8</button>
+            <button onclick="appendNumber('9')">9</button><button onclick="appendNumber('*')" class="sign"><svg xmlns="http://www.w3.org/2000/svg" height="20px" viewBox="0 -960 960 960" width="20px" fill="#0000FF"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg></button>
+            <button onclick="appendNumber('4')">4</button><button onclick="appendNumber('5')">5</button>
+            <button onclick="appendNumber('6')">6</button><button onclick="appendNumber('-')" class="sign">-</button>
+            <button onclick="appendNumber('1')">1</button><button onclick="appendNumber('2')">2</button>
+            <button onclick="appendNumber('3')">3</button><button onclick="appendNumber('+')" class="sign">+</button>
+            <button onclick="appendNumber('%')">%</button><button onclick="appendNumber('0')">0</button>
+            <button onclick="appendNumber('.')">.</button><button onclick="calculate()" class="equal">=</button>
         </div>
     </div>
+    <script>
+        let currentNumber = '';
+        function appendNumber(numbrer){
+            currentNumber = numbrer;
+            updateDisplay()
+        }
+        function updateDisplay(){
+            document.getElementById('input').value +=  currentNumber;
+        }
+
+        function clearAll(){
+            document.getElementById('input').value = '';
+        }
+
+        function deleteANumber(){
+            let values = document.getElementById('input').value;
+            document.getElementById('input').value= values.slice(0, -1);
+        }
+       
+        function calculate(){
+            const calculate =  document.getElementById('input').value;
+            try {
+    let result = eval(calculate);
+    document.getElementById('input').value = result;
+  } catch (error) {
+   
+  }
+        }
+    </script>
 </body>
 </html>
